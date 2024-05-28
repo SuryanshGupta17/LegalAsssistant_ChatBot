@@ -43,9 +43,10 @@ def generate_response(messages_list):
             stop=None,
         )
 
+        # Extract the response content from the choices
         response_content = ""
-        for chunk in completion:
-            response_content += chunk[0].delta.get('content', '')
+        for choice in completion.choices:
+            response_content += choice.message.content
 
         return response_content
     except Exception as e:

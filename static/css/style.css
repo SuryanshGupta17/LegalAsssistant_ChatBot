@@ -68,15 +68,20 @@ body {
   padding: 25px 10px;
   display: flex;
   justify-content: center;
+  margin-bottom: 10px;
   color: var(--text-color);
 }
 .chat-container .chat.outgoing {
   background: var(--outgoing-chat-bg);
   border: 1px solid var(--outgoing-chat-border);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 .chat-container .chat.incoming {
   background: var(--incoming-chat-bg);
   border: 1px solid var(--incoming-chat-border);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 .chat .chat-content {
   display: flex;
@@ -255,4 +260,50 @@ span.material-symbols-rounded {
   span.material-symbols-rounded {
     font-size: 1.25rem!important;
   }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  background-color: rgba(18, 18, 18, 0.425);
+  color: white;
+  padding: 15px 0;
+}
+
+.logo {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+.logo {
+  margin-right: 20px; /* Add margin to separate logo from heading */
+  width: 50px; /* Set width of logo */
+  height: auto; /* Maintain aspect ratio */
 }

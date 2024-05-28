@@ -37,12 +37,12 @@ const getChatResponse = async (incomingChatDiv) => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ message: userText })
+        body: JSON.stringify({ input: userText })
     };
 
     try {
         const response = await (await fetch(API_URL, requestOptions)).json();
-        pElement.textContent = response.choices[0].text.trim();
+        pElement.textContent = response.response.trim();
     } catch (error) {
         pElement.classList.add("error");
         pElement.textContent = "Oops! Something went wrong while retrieving the response. Please try again.";
@@ -127,71 +127,5 @@ chatInput.addEventListener("keydown", (e) => {
     }
 });
 
-loadDataFromLocalStorage();
 sendButton.addEventListener("click", handleOutgoingChat);
-
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("send-btn").addEventListener("click", sendMessage);
-
-    function sendMessage() {
-        const userInput = document.getElementById("chat-input").value;
-        if (userInput.trim() === "") return;
-
-        fetch('/api/get-response', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ input: userInput }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.response) {
-                addChatMessage(data.response, 'assistant');
-            } else {
-                console.error(data.error);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    function addChatMessage(message, role) {
-        const chatContainer = document.querySelector(".chat-container");
-        const chatContent = document.createElement("div");
-        chatContent.classList.add("chat-content");
-
-        const chatDetails = document.createElement("div");
-        chatDetails.classList.add("chat-details");
-
-        const img = document.createElement("img");
-        img.src = role === "user" ? "{{ url_for('static', filename='images/user.jpg') }}" : "{{ url_for('static', filename='images/chatbot.jpg') }}";
-        img.alt = `${role}-img`;
-
-        const messageElement = document.createElement("div");
-        messageElement.textContent = message;
-        messageElement.classList.add("chat-message");
-
-        chatDetails.appendChild(img);
-        chatDetails.appendChild(messageElement);
-
-        const copyButton = document.createElement("span");
-        copyButton.classList.add("material-symbols-rounded");
-        copyButton.textContent = "content_copy";
-        copyButton.onclick = () => copyResponse(messageElement);
-
-        chatContent.appendChild(chatDetails);
-        chatContent.appendChild(copyButton);
-
-        chatContainer.appendChild(chatContent);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-
-    function copyResponse(element) {
-        const text = element.textContent;
-        navigator.clipboard.writeText(text).then(() => {
-            console.log('Text copied to clipboard');
-        }).catch(err => {
-            console.error('Failed to copy text: ', err);
-        });
-    }
-});
+loadDataFromLocalStorage();
